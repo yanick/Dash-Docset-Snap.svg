@@ -1,3 +1,6 @@
 [submodule "Dash-User-Contributions"]
 	path = Dash-User-Contributions
 	url = gh:yanick/Dash-User-Contributions
+[submodule "Snap.svg"]
+	path = Snap.svg
+	url = ssh://git@github.com/adobe-webplatform/Snap.svg
