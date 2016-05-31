@@ -12,13 +12,14 @@ use Web::Query::LibXML;
 use List::Util qw/ pairs pairmap /;
 
 my $docset = Dash::Docset::Generator->new( 
-    name => "Snap.svg",
+    identifier      => 'snap.svg',
+    name            => "Snap.svg",
     platform_family => 'snapsvg',
-    output_dir => 'docset',
-    homepage => 'http://snapsvg.io',
+    output_dir      => 'build',
+    homepage        => 'http://snapsvg.io',
 );
 
-my $index = wq( 'reference.html' );
+my $index = wq( 'Snap.svg/doc/reference.html' );
 $index->find('base,#sideNav')->remove;
 $index->find('head')->append(<<'END');
 <style>
@@ -97,10 +98,16 @@ path('assets')->visit(sub{
         $docset->add_asset( { $path => $path->relative('assets') } );
 }, { recurse => 1 });
 
-$docset->add_asset( path('css')->children,  
-    path('js')->children );
+my $root_asset = path('Snap.svg/doc');
+for my $child ( qw/ css js / ) {
+    $root_asset->child($child)->visit(sub{
+            my $path = shift;
+            return if $path->is_dir;
+            $docset->add_asset( { $path => $path->relative($root_asset) } );
+    }, { recurse => 1 });
+}
 
-$docset->icon('assets/images/icon.png');
+$docset->icon('assets/images/icon@2x.png');
 
 $docset->generate;
 
