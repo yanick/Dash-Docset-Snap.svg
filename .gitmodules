@@ -1,0 +1,3 @@
+[submodule "Dash-User-Contributions"]
+	path = Dash-User-Contributions
+	url = gh:yanick/Dash-User-Contributions
