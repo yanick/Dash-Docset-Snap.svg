@@ -29,6 +29,7 @@ $index->find('head')->append(<<'END');
   }
 }
 #header .logo img { width: inherit; }
+#site { transform:none !important }
 </style>
 END
 $index->find('link')->each(sub{
